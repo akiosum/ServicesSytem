@@ -10,15 +10,11 @@ builder.Services
 builder.Services.AddTransient<GlobalExceptionsMiddleware>();
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseMiddleware<GlobalExceptionsMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("Productions");
+app.UseSwaggerDocumentation();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -18,7 +18,9 @@ public class ProductController : ApiController
     #endregion Constructors
 
     [HttpPost]
-    public async Task<ActionResult<BaseResponse<string>>> CreateProduct([FromBody] CreateProductRequest request)
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(BaseResponse<Guid>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<BaseResponse<Guid>>> CreateProduct([FromBody] CreateProductRequest request)
     {
         var result = await Sender.Send(request);
         return Response(result, HttpStatusCode.Created);

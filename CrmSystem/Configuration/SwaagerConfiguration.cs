@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 namespace CrmSystem.Configuration;
 
@@ -16,7 +17,13 @@ public static class SwaagerConfiguration
                 Contact = new OpenApiContact { Name = "Akio Serizawa" }
             });
         });
-        
+
         return services;
+    }
+
+    public static void UseSwaggerDocumentation(this IApplicationBuilder app)
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
     }
 }
