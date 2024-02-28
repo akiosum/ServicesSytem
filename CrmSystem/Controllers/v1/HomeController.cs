@@ -1,15 +1,19 @@
-﻿using CrmSystem.Abstractions;
-using CrmSystem.Shared.Results;
+﻿using FastResults.Results;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrmSystem.Controllers.v1;
 
 [Route("v1/[controller]")]
-public class HomeController : BaseController
+public class HomeController : ApiController
 {
-    [HttpGet]
-    public ActionResult<BaseResponse<string>> Home()
+    public HomeController(ISender sender) : base(sender)
     {
-        return Response(BaseResult.Sucess(), message: "Api online");
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<BaseResponse<string>>> Home()
+    {
+        return Ok();
     }
 }

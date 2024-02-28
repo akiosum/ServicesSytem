@@ -1,11 +1,12 @@
-using CrmSystem.Configurations;
+using CrmSystem.Configuration;
 using CrmSystem.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddConfig(builder.Configuration);
-builder.Services.AddSwaggerGen();
+    .AddConfig(builder.Configuration)
+    .AddRepository();
+
 builder.Services.AddTransient<GlobalExceptionsMiddleware>();
 
 var app = builder.Build();

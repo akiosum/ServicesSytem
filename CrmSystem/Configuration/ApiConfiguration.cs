@@ -1,6 +1,8 @@
-﻿using Serilog;
+﻿using CrmSystem.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
-namespace CrmSystem.Configurations;
+namespace CrmSystem.Configuration;
 
 public static class ApiConfiguration
 {
@@ -9,6 +11,10 @@ public static class ApiConfiguration
         services.AddControllers()
             .ConfigureApiBehaviorOptions(conf => { conf.SuppressModelStateInvalidFilter = true; });
         services.AddEndpointsApiExplorer();
+        services.AddMediatR(options =>
+        {
+            options.RegisterServicesFromAssembly(Application.ApplicationAssembly.Assembly);
+        });
         services.AddSwagger();
         services.AddCors(options => options.AddPolicy("Productions",
             cors => cors
@@ -25,6 +31,18 @@ public static class ApiConfiguration
                 .CreateLogger();
             options.AddSerilog(logger);
         });
+
+        services.AddDatabase(configuration);
+
+        return services;
+    }
+
+    private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("Database")));
+
+        services.AddHostedService<MigrationsRunner<ApplicationDbContext>>();
 
         return services;
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace CrmSystem.Configurations;
+namespace CrmSystem.Configuration;
 
 public static class SwaagerConfiguration
 {
