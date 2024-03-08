@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using CrmSystem.Shared.Messages;
+using FastResults.Enums;
 using FastResults.Errors;
 using FastResults.Results;
 
@@ -40,13 +41,14 @@ public class GlobalExceptionsMiddleware : IMiddleware
                 case UnauthorizedAccessException:
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     await response.WriteAsJsonAsync(
-                        new Error(HttpStatusCode.Unauthorized, MessageError.UnathorizedError));
+                        new Error(HttpStatusCode.Unauthorized, MessageError.UnathorizedError, TypeError.Unauthorized));
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     await response.WriteAsJsonAsync(new BaseResponse<string>(
-                        new Error(HttpStatusCode.InternalServerError, "Internal Error")));
+                        new Error(HttpStatusCode.InternalServerError, "Internal Error", TypeError.InternalError)));
                     break;
+                
             }
         }
     }

@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddConfig(builder.Configuration)
-    .AddRepository();
+    . AddInjectDependency();
 
 builder.Services.AddTransient<GlobalExceptionsMiddleware>();
 

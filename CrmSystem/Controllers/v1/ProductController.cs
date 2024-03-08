@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using CrmSystem.Application.Dto.Products;
 using CrmSystem.Application.Requests;
 using FastResults.Results;
 using MediatR;
@@ -24,5 +25,14 @@ public class ProductController : ApiController
     {
         var result = await Sender.Send(request);
         return Response(result, HttpStatusCode.Created);
+    }
+
+    [HttpGet, Route("product-id")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse<ProductDto>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<BaseResponse<ProductDto>>> GetProduct([FromQuery] Guid id)
+    {
+        var result = await Sender.Send(new GetProductById(id));
+        return Response(result);
     }
 }

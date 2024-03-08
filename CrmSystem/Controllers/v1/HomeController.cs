@@ -7,13 +7,17 @@ namespace CrmSystem.Controllers.v1;
 [Route("v1/[controller]")]
 public class HomeController : ApiController
 {
+    #region Constructors
+
     public HomeController(ISender sender) : base(sender)
     {
     }
 
+    #endregion Constructors
+
     [HttpGet]
-    public async Task<ActionResult<BaseResponse<string>>> Home()
+    public ActionResult<BaseResponse<string>> Home()
     {
-        return Ok();
+        return Response(BaseResult.Sucess(), "Api Open");
     }
 }
