@@ -2,6 +2,7 @@
 using CrmSystem.Application.Dto.HealthCheck;
 using CrmSystem.Infrastructure.Data;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Prometheus;
 
 namespace CrmSystem.Configuration;
 
@@ -10,7 +11,8 @@ public static class HealthChecksConfguration
     public static IServiceCollection AddApiHealthChecks(this IServiceCollection services)
     {
         services.AddHealthChecks()
-            .AddDbContextCheck<ApplicationDbContext>();
+            .AddDbContextCheck<ApplicationDbContext>()
+            .ForwardToPrometheus();
 
         return services;
     }
