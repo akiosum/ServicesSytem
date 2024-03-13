@@ -1,6 +1,5 @@
-﻿using System.Text.Json;
-using CrmSystem.Application.Dto.HealthCheck;
-using CrmSystem.Infrastructure.Data;
+﻿using CrmSystem.Infrastructure.Data;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
 
@@ -11,8 +10,11 @@ public static class HealthChecksConfguration
     public static IServiceCollection AddApiHealthChecks(this IServiceCollection services)
     {
         services.AddHealthChecks()
-            .AddDbContextCheck<ApplicationDbContext>()
+            .AddDbContextCheck<ApplicationDbContext>(tags: new[] { "Database" })
             .ForwardToPrometheus();
+
+        services.AddHealthChecksUI()
+            .AddInMemoryStorage();
 
         return services;
     }
@@ -21,16 +23,10 @@ public static class HealthChecksConfguration
     {
         app.UseHealthChecks("/status", new HealthCheckOptions
         {
-            ResponseWriter = async (context, report) =>
-            {
-                context.Response.ContentType = "application/json";
-                var response = new HealthCheckResponse(
-                    report.Status.ToString(),
-                    report.Entries.Select(x => new HealthCheck(x.Value.Status.ToString(), x.Key, x.Value.Description)),
-                    report.TotalDuration);
-
-                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
-            }
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
+
+        app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
     }
 }
