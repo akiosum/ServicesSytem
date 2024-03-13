@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddConfig(builder.Configuration)
-    . AddInjectDependency();
+    .AddInjectDependency();
 
 builder.Services.AddTransient<GlobalExceptionsMiddleware>();
 
@@ -13,6 +13,7 @@ var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionsMiddleware>();
 app.UseHttpsRedirection();
+app.UseHealthChecks();
 app.UseCors("Productions");
 app.UseSwaggerDocumentation();
 app.UseAuthorization();

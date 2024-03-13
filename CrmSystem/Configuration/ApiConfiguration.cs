@@ -33,6 +33,7 @@ public static class ApiConfiguration
         });
 
         services.AddDatabase(configuration);
+        services.AddApiHealthChecks();
 
         return services;
     }
