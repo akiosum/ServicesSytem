@@ -14,7 +14,7 @@ public static class HealthChecksConfguration
             .ForwardToPrometheus();
 
         services.AddHealthChecksUI()
-            .AddInMemoryStorage();
+            .AddSqliteStorage("Data Source=healthChecks.db");
 
         return services;
     }
