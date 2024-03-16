@@ -1,5 +1,5 @@
 ﻿using CrmSystem.Application.Contracts.Repositories;
-using CrmSystem.Application.Entities;
+using CrmSystem.Domain.Entities;
 using CrmSystem.Infrastructure.Abstractions;
 using CrmSystem.Infrastructure.Data;
 

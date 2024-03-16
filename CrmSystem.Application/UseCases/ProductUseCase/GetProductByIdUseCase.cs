@@ -1,9 +1,9 @@
 ﻿using CrmSystem.Application.Abstraction;
 using CrmSystem.Application.Contracts.Repositories;
 using CrmSystem.Application.Dto.Products;
-using CrmSystem.Application.Entities;
 using CrmSystem.Application.Requests;
-using CrmSystem.Shared.Messages;
+using CrmSystem.Domain.Entities;
+using CrmSystem.Domain.Messages;
 using FastResults.Results;
 using Mapster;
 using MediatR;

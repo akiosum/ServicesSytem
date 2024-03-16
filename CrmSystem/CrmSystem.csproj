@@ -12,6 +12,7 @@
         <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
         <PackageReference Include="AspNetCore.HealthChecks.UI.SQLite.Storage" Version="7.0.0" />
         <PackageReference Include="FastResults" Version="1.0.2" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.16">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,7 +30,7 @@
     <ItemGroup>
       <ProjectReference Include="..\CrmSystem.Application\CrmSystem.Application.csproj" />
       <ProjectReference Include="..\CrmSystem.Infrastructure\CrmSystem.Infrastructure.csproj" />
-      <ProjectReference Include="..\CrmSystem.Shared\CrmSystem.Shared.csproj" />
+      <ProjectReference Include="..\CrmSystem.Domain\CrmSystem.Domain.csproj" />
     </ItemGroup>
 
 </Project>

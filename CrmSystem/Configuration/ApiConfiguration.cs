@@ -1,4 +1,7 @@
-﻿using CrmSystem.Infrastructure.Data;
+﻿using CrmSystem.Application.Behaviors;
+using CrmSystem.Infrastructure.Data;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -15,6 +18,10 @@ public static class ApiConfiguration
         {
             options.RegisterServicesFromAssembly(Application.ApplicationAssembly.Assembly);
         });
+        services.AddScoped(typeof(IPipelineBehavior<,>),
+            typeof(ValidationPipelineBehavior<,>));
+        services.AddValidatorsFromAssembly(Application.ApplicationAssembly.Assembly);
+
         services.AddSwagger();
         services.AddCors(options => options.AddPolicy("Productions",
             cors => cors

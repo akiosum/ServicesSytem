@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CrmSystem.Application\CrmSystem.Application.csproj" />
-      <ProjectReference Include="..\CrmSystem.Shared\CrmSystem.Shared.csproj" />
+      <ProjectReference Include="..\CrmSystem.Domain\CrmSystem.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

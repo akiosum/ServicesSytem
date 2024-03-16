@@ -1,4 +1,4 @@
-﻿using CrmSystem.Application.Entities;
+﻿using CrmSystem.Domain.Entities;
 
 namespace CrmSystem.Application.Contracts.Repositories;
 

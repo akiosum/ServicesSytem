@@ -1,8 +1,9 @@
 ﻿using System.Net;
-using CrmSystem.Shared.Messages;
+using CrmSystem.Domain.Messages;
 using FastResults.Enums;
 using FastResults.Errors;
 using FastResults.Results;
+using FluentValidation;
 
 namespace CrmSystem.Middlewares;
 
@@ -43,12 +44,17 @@ public class GlobalExceptionsMiddleware : IMiddleware
                     await response.WriteAsJsonAsync(
                         new Error(HttpStatusCode.Unauthorized, MessageError.UnathorizedError, TypeError.Unauthorized));
                     break;
+                case ValidationException:
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    await response.WriteAsJsonAsync(
+                        new Error(HttpStatusCode.NotFound, exception.Message, TypeError.Validation));
+                    break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     await response.WriteAsJsonAsync(new BaseResponse<string>(
-                        new Error(HttpStatusCode.InternalServerError, "Internal Error", TypeError.InternalError)));
+                        new Error(HttpStatusCode.InternalServerError, MessageError.InternalError,
+                            TypeError.InternalError)));
                     break;
-                
             }
         }
     }

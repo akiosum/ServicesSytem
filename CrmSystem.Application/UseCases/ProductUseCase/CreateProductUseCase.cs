@@ -1,7 +1,7 @@
 ﻿using CrmSystem.Application.Abstraction;
 using CrmSystem.Application.Contracts.Repositories;
-using CrmSystem.Application.Entities;
 using CrmSystem.Application.Requests;
+using CrmSystem.Domain.Entities;
 using FastResults.Results;
 using Mapster;
 using MediatR;
@@ -29,8 +29,8 @@ public class CreateProductUseCase : BaseUseCase<CreateProductRequest, Guid>
         CancellationToken cancellationToken)
     {
         Product product = request.Adapt<Product>();
-        Product productCreated = await _productRepository.Add(product, cancellationToken);
+        // Product productCreated = await _productRepository.Add(product, cancellationToken);
 
-        return productCreated.Id;
+        return product.Id;
     }
 }
